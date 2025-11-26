@@ -1,1 +1,314 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NIT-chat</title>
+</head>
+<body>
+    <style>
+        header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #ddd;
+}
 
+.hero {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.hero h2 {
+    color: #3eb489;
+    margin-bottom: 15px;
+}
+
+.features {
+    margin-bottom: 30px;
+}
+
+.features h3 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #3eb489;
+}
+
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.feature {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.motivation {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+footer {
+    text-align: center;
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid #ddd;
+    color: #666;
+}
+
+.auth-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f8f9fa;
+}
+
+.auth-form {
+    background: white;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 400px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+/* === Кнопка "Войти" на всю ширину === */
+.btn-login {
+    width: 100%;
+    background-color: #3eb489; /* Мятный цвет */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 12px;
+    font-size: 16px;
+    cursor: pointer;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.btn-login:hover {
+    background-color: #2c8a6a;
+}
+
+/* === Кнопка "Зарегистрироваться" (ширина под шрифт + 5px слева и справа) === */
+.btn-register {
+    background-color: #2c8a6a; /* Потемнее мятный */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 5px;         /* 5px слева и справа */
+    font-size: 16px;
+    cursor: pointer;
+    text-align: center;
+    margin-bottom: 15px;
+    display: block;            /* Для центрирования */
+    width: fit-content;        /* Ширина под содержимое */
+    margin-left: auto;         /* Центрирование */
+    margin-right: auto;
+}
+
+.btn-register:hover {
+    background-color: #25755c;
+}
+
+/* === Кнопка "Регистрация тестера" (ширина под шрифт) === */
+.btn-tester-register {
+    background-color: #6c757d; /* Серый цвет */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 5px;         /* 5px слева и справа */
+    font-size: 14px;          /* Шрифт 14px */
+    cursor: pointer;
+    text-align: center;
+    margin-bottom: 15px;
+    display: block;            /* Для центрирования */
+    width: fit-content;        /* Ширина под содержимое */
+    margin-left: auto;         /* Центрирование */
+    margin-right: auto;
+}
+
+.btn-tester-register:hover {
+    background-color: #545b62;
+}
+
+/* === Кнопка "Назад" (ширина под шрифт + 15px слева и справа) === */
+.btn-back {
+    background-color: #6c757d; /* Серый цвет */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 15px;        /* 15px слева и справа */
+    font-size: 14px;
+    cursor: pointer;
+    text-align: center;
+    display: block;           /* Для центрирования */
+    width: fit-content;       /* Ширина под содержимое */
+    margin: 10px auto 0;      /* Центрирование + отступ сверху */
+}
+
+.btn-back:hover {
+    background-color: #545b62;
+}
+
+/* === Сообщения об ошибках === */
+.error-message {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    border: 1px solid #f5c6cb;
+    text-align: center;
+}
+
+/* === Убираем старые гиперссылки === */
+.auth-links {
+    display: none;
+}
+        * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f5f5f5;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* === Общие стили кнопок === */
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;  /* Прямоугольные со скруглёнными углами */
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s;
+}
+
+.btn-primary {
+    background-color: #3eb489; /* Мятный цвет */
+    color: white;
+    border-radius: 8px; /* Прямоугольная, но со скруглёнными углами */
+    padding: 10px 25px;
+    font-size: 14px;
+    transition: background-color 0.3s;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-primary:hover {
+    background-color: #2c8a6a;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background-color: #545b62;
+}
+
+.btn-outline {
+    background-color: transparent;
+    border: 1px solid #3eb489;
+    color: #3eb489;
+}
+
+.btn-outline:hover {
+    background-color: #3eb489;
+    color: white;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+    </style>
+    <div class="container">
+        <header>
+            <h1>Добро пожаловать в NIT-chat!</h1>
+            <div class="auth-buttons">
+                <a href="{{ url_for('login') }}" class="btn btn-primary">Войти</a>
+            </div>
+        </header>
+        
+        <main>
+            <section class="hero">
+                <h2>Свободное всегда и везде</h2>
+                <p>Наш мессенджер создан для тех, кто ценит простоту и доступность. Здесь вы можете:</p>
+                <ul>
+                    <li>Общаться в общем чате со всеми участниками</li>
+                    <li>Писать личные сообщения друзьям</li>
+                    <li>Находить новых знакомых</li>
+                    <li>Видеть обновления и радоваться новым функциям</li>
+                </ul>
+            </section>
+            
+            <section class="features">
+                <h3>Особенности проекта</h3>
+                <div class="feature-grid">
+                    <div class="feature">
+                        <h4>🔒 Безопасность</h4>
+                        <p>пароли и логины хешируются на сервере, никто вас не взломает</p>
+                    </div>
+                    <div class="feature">
+                        <h4>📱 Адаптивность</h4>
+                        <p>Удобный интерфейс для ПК и мобильных устройств</p>
+                    </div>
+                    <div class="feature">
+                        <h4>⚡ Быстродействие</h4>
+                        <p>Мгновенное обновление сообщений</p>
+                    </div>
+                    <div class="feature">
+                        <h4>👥 Открытый исходный код</h4>
+                        <p>будет доступен в декабре 2025 года</p>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="motivation">
+                <h3>Наша мотивация</h3>
+                <p>Мы создали этот мессенджер, чтобы предоставить альтернативу существующим платформам. Нам важно, чтобы каждый мог общаться там, где хочет и иметь контроль над своими данными.</p>
+                <p>Это не просто мессенджер — это платформа для свободного мышления и общения.</p>
+            </section>
+        </main>
+        
+        <footer>
+            <p>&copy; 2025 nit-chat. Создано с ❤️ для культурного общения.</p>
+        </footer>
+    </div>
+</body>
+
+</html>
